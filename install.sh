@@ -295,7 +295,12 @@ ${B}接下来${N}
   1. 打开后台 → 左边「使用说明」有从 0 到 1 的完整教程
   2. 「机场面板」添加机场的 Xboard（地址 + 通讯密钥）
   3. 「节点」登记节点并标记，再按教程给落地装节点后端
-  4. 机场 Xboard 的订阅地址填：${G}https://${d:-你的域名}/sub${N}
+  4. 机场 Xboard 后台 → 订阅配置 → ${B}订阅地址（subscribe_url）${N} 填：
+     ${G}https://${d:-你的域名}/sub${N}
+
+     ${D}· 只改这一项；站点 URL（app_url）保持机场自己的域名不要动
+     · 机场自定义过订阅路径的不用管：路径是 Xboard 自己拼在后面的，
+       本面板只剥掉自己那截 /sub，剩下的整段原样转发，叫什么都认${N}
 
   以后管理随时敲 ${G}np${N}
 EOF
@@ -338,7 +343,8 @@ cmd_domain(){
   setup_proxy "$d" "$mode"
   echo "$d" > "$DIR/.domain"
   ok "域名已切到 $d"
-  warn "别忘了：面板「设置 → 对外地址」也改成 https://$d；机场 Xboard 的订阅地址改成 https://$d/sub"
+  warn "别忘了两处：面板「设置 → 对外地址」改成 https://$d；机场 Xboard 的订阅地址（subscribe_url）改成 https://$d/sub"
+  printf '%s\n' "${D}  （站点 URL app_url 不要动；机场自定义的订阅路径不用管，本面板原样转发）${N}" >&2
 }
 cmd_backup(){
   need_root; local f="/root/$NAME-backup-$(date +%Y%m%d%H%M).tar.gz"

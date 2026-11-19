@@ -55,7 +55,9 @@ bash <(curl -fsSL .../install.sh) -d panel.example.com cdn
 
 打开 `https://你的域名/admin/`，左边 **「使用说明」** 有从 0 到 1 的完整教程：添加机场 Xboard → 登记节点 → 给落地装节点后端 → 让订阅走本面板。
 
-机场的 Xboard 里把**订阅地址**填成 `https://你的域名/sub` 即可，站点 URL 保持原样不动。
+机场的 Xboard 里把 **订阅地址（subscribe_url）** 填成 `https://你的域名/sub` 即可，**站点 URL（app_url）保持原样不动**。
+
+机场自定义过订阅路径的不用管：路径由 Xboard 自己拼在后面，面板只剥掉自己那截 `/sub`，剩下的整段原样转发。比如订阅路径是 `abc123`，用户链接就是 `https://你的域名/sub/abc123/<token>`，面板照样认。
 
 ## 文件位置
 
